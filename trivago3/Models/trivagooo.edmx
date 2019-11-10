@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TRIVAGO2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AGENT">
+          <Key>
+            <PropertyRef Name="AGENTID" />
+          </Key>
+          <Property Name="AGENTID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="LOCATION" Type="varchar" MaxLength="50" />
+          <Property Name="CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="CUSTOMERID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="LOCATION" Type="varchar" MaxLength="50" />
+          <Property Name="CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HOTEL">
+          <Key>
+            <PropertyRef Name="HOTELID" />
+          </Key>
+          <Property Name="HOTELID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="LOCATION" Type="varchar" MaxLength="50" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+          <Property Name="AGENTID" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="HOTEL_BOOKING">
+          <Key>
+            <PropertyRef Name="HOTELID" />
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="HOTELID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CUSTOMERID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CHECK_IN" Type="date" />
+          <Property Name="CHECK_OUT" Type="date" />
+        </EntityType>
+        <EntityType Name="PACKAGE_BOOKING">
+          <Key>
+            <PropertyRef Name="PACKAGEID" />
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="PACKAGEID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CUSTOMERID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="BOOKING_DATE" Type="date" />
+        </EntityType>
+        <EntityType Name="PACKAGES">
+          <Key>
+            <PropertyRef Name="PACKAGEID" />
+          </Key>
+          <Property Name="PACKAGEID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+          <Property Name="ACTIVITIES" Type="varchar" MaxLength="50" />
+          <Property Name="NO_OF_DAYS" Type="varchar" MaxLength="50" />
+          <Property Name="PLACES" Type="varchar" MaxLength="200" />
+          <Property Name="AGENTID" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <Association Name="FK_HOTEL_AGENT">
+          <End Role="AGENT" Type="Self.AGENT" Multiplicity="0..1" />
+          <End Role="HOTEL" Type="Self.HOTEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGENT">
+              <PropertyRef Name="AGENTID" />
+            </Principal>
+            <Dependent Role="HOTEL">
+              <PropertyRef Name="AGENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_BOOKING_CUSTOMER">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+          <End Role="HOTEL_BOOKING" Type="Self.HOTEL_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="HOTEL_BOOKING">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_BOOKING_HOTEL">
+          <End Role="HOTEL" Type="Self.HOTEL" Multiplicity="1" />
+          <End Role="HOTEL_BOOKING" Type="Self.HOTEL_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOTEL">
+              <PropertyRef Name="HOTELID" />
+            </Principal>
+            <Dependent Role="HOTEL_BOOKING">
+              <PropertyRef Name="HOTELID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGE_BOOKING_CUSTOMER">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+          <End Role="PACKAGE_BOOKING" Type="Self.PACKAGE_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="PACKAGE_BOOKING">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGE_BOOKING_PACKAGES">
+          <End Role="PACKAGES" Type="Self.PACKAGES" Multiplicity="1" />
+          <End Role="PACKAGE_BOOKING" Type="Self.PACKAGE_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACKAGES">
+              <PropertyRef Name="PACKAGEID" />
+            </Principal>
+            <Dependent Role="PACKAGE_BOOKING">
+              <PropertyRef Name="PACKAGEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGES_AGENT">
+          <End Role="AGENT" Type="Self.AGENT" Multiplicity="0..1" />
+          <End Role="PACKAGES" Type="Self.PACKAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGENT">
+              <PropertyRef Name="AGENTID" />
+            </Principal>
+            <Dependent Role="PACKAGES">
+              <PropertyRef Name="AGENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TRIVAGO2ModelStoreContainer">
+          <EntitySet Name="AGENT" EntityType="Self.AGENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOTEL" EntityType="Self.HOTEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOTEL_BOOKING" EntityType="Self.HOTEL_BOOKING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACKAGE_BOOKING" EntityType="Self.PACKAGE_BOOKING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACKAGES" EntityType="Self.PACKAGES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HOTEL_AGENT" Association="Self.FK_HOTEL_AGENT">
+            <End Role="AGENT" EntitySet="AGENT" />
+            <End Role="HOTEL" EntitySet="HOTEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_BOOKING_CUSTOMER" Association="Self.FK_HOTEL_BOOKING_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="HOTEL_BOOKING" EntitySet="HOTEL_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_BOOKING_HOTEL" Association="Self.FK_HOTEL_BOOKING_HOTEL">
+            <End Role="HOTEL" EntitySet="HOTEL" />
+            <End Role="HOTEL_BOOKING" EntitySet="HOTEL_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGE_BOOKING_CUSTOMER" Association="Self.FK_PACKAGE_BOOKING_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="PACKAGE_BOOKING" EntitySet="PACKAGE_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGE_BOOKING_PACKAGES" Association="Self.FK_PACKAGE_BOOKING_PACKAGES">
+            <End Role="PACKAGES" EntitySet="PACKAGES" />
+            <End Role="PACKAGE_BOOKING" EntitySet="PACKAGE_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGES_AGENT" Association="Self.FK_PACKAGES_AGENT">
+            <End Role="AGENT" EntitySet="AGENT" />
+            <End Role="PACKAGES" EntitySet="PACKAGES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TRIVAGO2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AGENT">
+          <Key>
+            <PropertyRef Name="AGENTID" />
+          </Key>
+          <Property Name="AGENTID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LOCATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HOTELs" Relationship="Self.FK_HOTEL_AGENT" FromRole="AGENT" ToRole="HOTEL" />
+          <NavigationProperty Name="PACKAGES" Relationship="Self.FK_PACKAGES_AGENT" FromRole="AGENT" ToRole="PACKAGES" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="CUSTOMERID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LOCATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HOTEL_BOOKING" Relationship="Self.FK_HOTEL_BOOKING_CUSTOMER" FromRole="CUSTOMER" ToRole="HOTEL_BOOKING" />
+          <NavigationProperty Name="PACKAGE_BOOKING" Relationship="Self.FK_PACKAGE_BOOKING_CUSTOMER" FromRole="CUSTOMER" ToRole="PACKAGE_BOOKING" />
+        </EntityType>
+        <EntityType Name="HOTEL">
+          <Key>
+            <PropertyRef Name="HOTELID" />
+          </Key>
+          <Property Name="HOTELID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LOCATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AGENTID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AGENT" Relationship="Self.FK_HOTEL_AGENT" FromRole="HOTEL" ToRole="AGENT" />
+          <NavigationProperty Name="HOTEL_BOOKING" Relationship="Self.FK_HOTEL_BOOKING_HOTEL" FromRole="HOTEL" ToRole="HOTEL_BOOKING" />
+        </EntityType>
+        <EntityType Name="HOTEL_BOOKING">
+          <Key>
+            <PropertyRef Name="HOTELID" />
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="HOTELID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CUSTOMERID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CHECK_IN" Type="DateTime" Precision="0" />
+          <Property Name="CHECK_OUT" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CUSTOMER" Relationship="Self.FK_HOTEL_BOOKING_CUSTOMER" FromRole="HOTEL_BOOKING" ToRole="CUSTOMER" />
+          <NavigationProperty Name="HOTEL" Relationship="Self.FK_HOTEL_BOOKING_HOTEL" FromRole="HOTEL_BOOKING" ToRole="HOTEL" />
+        </EntityType>
+        <EntityType Name="PACKAGE_BOOKING">
+          <Key>
+            <PropertyRef Name="PACKAGEID" />
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="PACKAGEID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CUSTOMERID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BOOKING_DATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CUSTOMER" Relationship="Self.FK_PACKAGE_BOOKING_CUSTOMER" FromRole="PACKAGE_BOOKING" ToRole="CUSTOMER" />
+          <NavigationProperty Name="PACKAGE" Relationship="Self.FK_PACKAGE_BOOKING_PACKAGES" FromRole="PACKAGE_BOOKING" ToRole="PACKAGES" />
+        </EntityType>
+        <EntityType Name="PACKAGE">
+          <Key>
+            <PropertyRef Name="PACKAGEID" />
+          </Key>
+          <Property Name="PACKAGEID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVITIES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NO_OF_DAYS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PLACES" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AGENTID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AGENT" Relationship="Self.FK_PACKAGES_AGENT" FromRole="PACKAGES" ToRole="AGENT" />
+          <NavigationProperty Name="PACKAGE_BOOKING" Relationship="Self.FK_PACKAGE_BOOKING_PACKAGES" FromRole="PACKAGES" ToRole="PACKAGE_BOOKING" />
+        </EntityType>
+        <Association Name="FK_HOTEL_AGENT">
+          <End Role="AGENT" Type="Self.AGENT" Multiplicity="0..1" />
+          <End Role="HOTEL" Type="Self.HOTEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGENT">
+              <PropertyRef Name="AGENTID" />
+            </Principal>
+            <Dependent Role="HOTEL">
+              <PropertyRef Name="AGENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGES_AGENT">
+          <End Role="AGENT" Type="Self.AGENT" Multiplicity="0..1" />
+          <End Role="PACKAGES" Type="Self.PACKAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGENT">
+              <PropertyRef Name="AGENTID" />
+            </Principal>
+            <Dependent Role="PACKAGES">
+              <PropertyRef Name="AGENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_BOOKING_CUSTOMER">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+          <End Role="HOTEL_BOOKING" Type="Self.HOTEL_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="HOTEL_BOOKING">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGE_BOOKING_CUSTOMER">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+          <End Role="PACKAGE_BOOKING" Type="Self.PACKAGE_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="PACKAGE_BOOKING">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_BOOKING_HOTEL">
+          <End Role="HOTEL" Type="Self.HOTEL" Multiplicity="1" />
+          <End Role="HOTEL_BOOKING" Type="Self.HOTEL_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOTEL">
+              <PropertyRef Name="HOTELID" />
+            </Principal>
+            <Dependent Role="HOTEL_BOOKING">
+              <PropertyRef Name="HOTELID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACKAGE_BOOKING_PACKAGES">
+          <End Role="PACKAGES" Type="Self.PACKAGE" Multiplicity="1" />
+          <End Role="PACKAGE_BOOKING" Type="Self.PACKAGE_BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACKAGES">
+              <PropertyRef Name="PACKAGEID" />
+            </Principal>
+            <Dependent Role="PACKAGE_BOOKING">
+              <PropertyRef Name="PACKAGEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TRIVAGO2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AGENTs" EntityType="Self.AGENT" />
+          <EntitySet Name="CUSTOMERs" EntityType="Self.CUSTOMER" />
+          <EntitySet Name="HOTELs" EntityType="Self.HOTEL" />
+          <EntitySet Name="HOTEL_BOOKING" EntityType="Self.HOTEL_BOOKING" />
+          <EntitySet Name="PACKAGE_BOOKING" EntityType="Self.PACKAGE_BOOKING" />
+          <EntitySet Name="PACKAGES" EntityType="Self.PACKAGE" />
+          <AssociationSet Name="FK_HOTEL_AGENT" Association="Self.FK_HOTEL_AGENT">
+            <End Role="AGENT" EntitySet="AGENTs" />
+            <End Role="HOTEL" EntitySet="HOTELs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGES_AGENT" Association="Self.FK_PACKAGES_AGENT">
+            <End Role="AGENT" EntitySet="AGENTs" />
+            <End Role="PACKAGES" EntitySet="PACKAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_BOOKING_CUSTOMER" Association="Self.FK_HOTEL_BOOKING_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
+            <End Role="HOTEL_BOOKING" EntitySet="HOTEL_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGE_BOOKING_CUSTOMER" Association="Self.FK_PACKAGE_BOOKING_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
+            <End Role="PACKAGE_BOOKING" EntitySet="PACKAGE_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_BOOKING_HOTEL" Association="Self.FK_HOTEL_BOOKING_HOTEL">
+            <End Role="HOTEL" EntitySet="HOTELs" />
+            <End Role="HOTEL_BOOKING" EntitySet="HOTEL_BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACKAGE_BOOKING_PACKAGES" Association="Self.FK_PACKAGE_BOOKING_PACKAGES">
+            <End Role="PACKAGES" EntitySet="PACKAGES" />
+            <End Role="PACKAGE_BOOKING" EntitySet="PACKAGE_BOOKING" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TRIVAGO2ModelStoreContainer" CdmEntityContainer="TRIVAGO2Entities">
+          <EntitySetMapping Name="AGENTs">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.AGENT">
+              <MappingFragment StoreEntitySet="AGENT">
+                <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMERs">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOTELs">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.HOTEL">
+              <MappingFragment StoreEntitySet="HOTEL">
+                <ScalarProperty Name="HOTELID" ColumnName="HOTELID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOTEL_BOOKING">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.HOTEL_BOOKING">
+              <MappingFragment StoreEntitySet="HOTEL_BOOKING">
+                <ScalarProperty Name="HOTELID" ColumnName="HOTELID" />
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+                <ScalarProperty Name="CHECK_IN" ColumnName="CHECK_IN" />
+                <ScalarProperty Name="CHECK_OUT" ColumnName="CHECK_OUT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACKAGE_BOOKING">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.PACKAGE_BOOKING">
+              <MappingFragment StoreEntitySet="PACKAGE_BOOKING">
+                <ScalarProperty Name="PACKAGEID" ColumnName="PACKAGEID" />
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+                <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACKAGES">
+            <EntityTypeMapping TypeName="TRIVAGO2Model.PACKAGE">
+              <MappingFragment StoreEntitySet="PACKAGES">
+                <ScalarProperty Name="PACKAGEID" ColumnName="PACKAGEID" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ACTIVITIES" ColumnName="ACTIVITIES" />
+                <ScalarProperty Name="NO_OF_DAYS" ColumnName="NO_OF_DAYS" />
+                <ScalarProperty Name="PLACES" ColumnName="PLACES" />
+                <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="547ca2857737400b9dd0eed685c1ace4" Name="Diagram1">
+        <EntityTypeShape EntityType="TRIVAGO2Model.AGENT" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRIVAGO2Model.CUSTOMER" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRIVAGO2Model.HOTEL" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRIVAGO2Model.HOTEL_BOOKING" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRIVAGO2Model.PACKAGE_BOOKING" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRIVAGO2Model.PACKAGE" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_HOTEL_AGENT" ManuallyRouted="false" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_PACKAGES_AGENT" ManuallyRouted="false" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_HOTEL_BOOKING_CUSTOMER" ManuallyRouted="false" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_PACKAGE_BOOKING_CUSTOMER" ManuallyRouted="false" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_HOTEL_BOOKING_HOTEL" ManuallyRouted="false" />
+        <AssociationConnector Association="TRIVAGO2Model.FK_PACKAGE_BOOKING_PACKAGES" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

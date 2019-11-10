@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TRIVAGO2ModelStoreContainer" CdmEntityContainer="TRIVAGO2Entities">
+    <EntitySetMapping Name="AGENTs">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.AGENT">
+        <MappingFragment StoreEntitySet="AGENT">
+          <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMERs">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.CUSTOMER">
+        <MappingFragment StoreEntitySet="CUSTOMER">
+          <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOTELs">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.HOTEL">
+        <MappingFragment StoreEntitySet="HOTEL">
+          <ScalarProperty Name="HOTELID" ColumnName="HOTELID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+          <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOTEL_BOOKING">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.HOTEL_BOOKING">
+        <MappingFragment StoreEntitySet="HOTEL_BOOKING">
+          <ScalarProperty Name="HOTELID" ColumnName="HOTELID" />
+          <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+          <ScalarProperty Name="CHECK_IN" ColumnName="CHECK_IN" />
+          <ScalarProperty Name="CHECK_OUT" ColumnName="CHECK_OUT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PACKAGE_BOOKING">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.PACKAGE_BOOKING">
+        <MappingFragment StoreEntitySet="PACKAGE_BOOKING">
+          <ScalarProperty Name="PACKAGEID" ColumnName="PACKAGEID" />
+          <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+          <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PACKAGES">
+      <EntityTypeMapping TypeName="TRIVAGO2Model.PACKAGE">
+        <MappingFragment StoreEntitySet="PACKAGES">
+          <ScalarProperty Name="PACKAGEID" ColumnName="PACKAGEID" />
+          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="ACTIVITIES" ColumnName="ACTIVITIES" />
+          <ScalarProperty Name="NO_OF_DAYS" ColumnName="NO_OF_DAYS" />
+          <ScalarProperty Name="PLACES" ColumnName="PLACES" />
+          <ScalarProperty Name="AGENTID" ColumnName="AGENTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

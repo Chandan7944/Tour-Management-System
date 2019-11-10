@@ -1,0 +1,64 @@
+﻿@model IEnumerable<trivago3.Models.PACKAGE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>AVAILABLE PACKAGES</h2>
+
+<p>
+   <!-- @Html.ActionLink("Create New", "Create")-->
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PRICE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACTIVITIES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NO_OF_DAYS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PLACES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AGENT.NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRICE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPTION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACTIVITIES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NO_OF_DAYS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PLACES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AGENT.NAME)
+        </td>
+        <td>
+            <!-- @Html.ActionLink("Edit", "Edit", new { id=item.PACKAGEID }) |
+                 @Html.ActionLink("Details", "Details", new { id=item.PACKAGEID }) |
+                 @Html.ActionLink("Delete", "Delete", new { id=item.PACKAGEID })-->
+            <p><a class="btn btn-default" href="~/PACKAGE_BOOKING/Create">BOOK &raquo;</a></p>
+        </td>
+    </tr>
+}
+
+</table>

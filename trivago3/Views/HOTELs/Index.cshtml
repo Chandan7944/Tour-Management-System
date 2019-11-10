@@ -1,0 +1,60 @@
+﻿@model IEnumerable<trivago3.Models.HOTEL>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>AVAILABLE HOTELS</h2>
+
+<p>
+   <!-- @Html.ActionLink("Create New", "Create")-->
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTACT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOCATION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AGENT.NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NAME)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CONTACT)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LOCATION)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DESCRIPTION)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AGENT.NAME)
+    </td>
+    <!-- <td>
+         @Html.ActionLink("Edit", "Edit", new { id=item.HOTELID }) |
+         @Html.ActionLink("Details", "Details", new { id=item.HOTELID }) |
+         @Html.ActionLink("Delete", "Delete", new { id=item.HOTELID })
+     </td>-->
+    <td>
+    <p><a class="btn btn-default" href="~/HOTEL_BOOKING/Create">BOOK &raquo;</a></p>
+    </td>
+</tr>
+}
+
+</table>
